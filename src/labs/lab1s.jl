@@ -404,8 +404,7 @@ end
 ## SOLUTION
 errs = [abs(centraldifferences(exp, 1, 10.0^(-k))-exp(1)) for k = 0:20]
 plot(0:20, errs; yscale=:log10, label="error") # scale only the y-axis
-## It still diverges but achieves much better accuracy. The optimal choice of $h$ is now
-# $≈ 10^{-5}$.
+## It still diverges but achieves much better accuracy. The optimal choice of h is now ≈ 10^{-5}.
 ## END
 
 # **Problem 3(c)** Applying central differences to itself we get an approximation to

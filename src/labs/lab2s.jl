@@ -267,9 +267,11 @@ function ==(x::Rat, y::Rat)
     ## Hint: gcd and div may be useful. Use ? to find out what they do
 
     ## SOLUTION
-    xg = gcd(x.p, x.q)
-    yg = gcd(y.p, y.q)
-    div(x.p, xg) == div(y.p, yg) && div(x.q, xg) == div(y.q, yg)
+    p,q = x.p,x.q
+    r,s = y.p,y.q
+    xg = gcd(p, q)
+    yg = gcd(r, s)
+    div(p, xg) == div(r, yg) && div(q, xg) == div(s, yg)
     ## END
 end
 

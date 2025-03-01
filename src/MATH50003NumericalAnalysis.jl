@@ -31,6 +31,10 @@ end
 function fixunderbars(path)
     write(path, replace(read(path, String), "f\\ensuremath{\\underbar}" => "\\underline{f}"))
     write(path, replace(read(path, String), "g\\ensuremath{\\underbar}" => "\\underline{g}"))
+    write(path, replace(read(path, String), "M\\ensuremath{\\tilde}" => "\\tilde{M}"))
+    write(path, replace(read(path, String), "L\\ensuremath{\\tilde}" => "\\tilde{L}"))
+    write(path, replace(read(path, String), "U\\ensuremath{\\tilde}" => "\\tilde{U}"))
+    write(path, replace(read(path, String), "P\\ensuremath{\\tilde}" => "\\tilde{P}"))
 end
 
 function compilenotes(filename) 
@@ -63,6 +67,7 @@ function compilesheet(k)
     path = "sheets/$filename.tex"
     # work around double newline before equation
     fixwhitespace(path)
+    fixunderbars(path)
     # work around meeq 
     write(path, replace(read(path, String), r"\\\[\n\\meeq\{(.*?)\}\n\\\]"s => s"\\meeq{\1}"))
 end
@@ -74,6 +79,7 @@ function compilesheetsolution(k)
     path = "sheets/$(filename)s.tex"
     # work around double newline before equation
     fixwhitespace(path)
+    fixunderbars(path)
     # work around meeq 
     write(path, replace(read(path, String), r"\\\[\n\\meeq\{(.*?)\}\n\\\]"s => s"\\meeq{\1}"))
 end
@@ -99,8 +105,8 @@ end
 
 function compilelabdemo(k)
     str = replace(read("src/labs/lab$(k)s.jl", String), r"## SOLUTION(.*?)## END"s => "")
-    write("labs/lab$(k)d.jl", replace(str, r"## DEMO(.*?)## END"s => "##"))
-    Literate.notebook("labs/lab$(k)d.jl", "labs/"; execute=false)
+    write("slides/lab$(k)d.jl", replace(str, r"## DEMO(.*?)## END"s => "##"))
+    Literate.notebook("slides/lab$(k)d.jl", "slides/"; execute=false)
 end
 
 function compilelabsolution(k)
